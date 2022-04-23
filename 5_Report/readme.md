@@ -1,1 +1,9 @@
-
+. CS00, CS01, CS02 (YELLOW) — select the prescalar for choosing counter clock. The table for appropriate prescalar is shown in below table. So for prescaling one (oscillator clock=counter clock) .
+so CS00=1, other two bits are zero. WGM01and WGM00 are altered to choose waveform generation modes, based on the table below, for fast PWM. We have WGM00=1 and WGM01=1;
+Now we know that PWM is a signal with different duty ratio or different turn ON turn OFF times. Until now we have chosen frequency and type of PWM. The main theme of this project lies in this section. For getting different duty ratio, we are going to choose a value between 0 and 255 (2^8 because of 8 bit). Say we choose a value 180, as the counter start counting from 0 and reaches the value 180, the output response may be triggered. This trigger may be inverting or non inverting. That is the output can be told to pulled up on reaching the count, or it can be told to pulled down on reaching the count.
+This selection of pulling up or down is chosen by CM00 and CM01 bits.
+As shown in table, for the output to go high on compare and the output will stay high until max value (as shown in figure at bottom). We have to choose inverting mode to do that, so COM00=1; COM01=1.
+As shown in below figure, OCR0 (Output Compare Register 0) is the byte which stores the user chosen value. So if we change OCR0=180, the controller triggers the change (high) when counter reaches 180 from 0.
+Now for varying the brightness of LED we have to change the DUTY RATIO of PWM signal. In order to change duty ratio, we need to change the OCR0 value. When we change this value of OCR0, the counter takes different time, to reach the OCR0. So the controller pulls the output high at different times.
+So for PWM of different duty cycles, we need to change OCR0 value.
+In circuit we have two buttons. One button is for increasing the OCR0 value and so the DUTY RATIO of PWM signal, other is for decreasing the OCR0 value and so the DUTY RATIO of PWM signal.
